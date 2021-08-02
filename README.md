@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type   | Options      |
-| ------------------ | ------ | -----------  |
-| email              | string | unique: true |
-| encrypted_password | string | null: false  |
-| nickname           | string | null: false  |
-| first_name         | string | null: false  |
-| last_name          | string | null: false  |
-| first_name_kana    | string | null: false  |
-| last_name_kana     | string | null: false  |
-| birthday           | date   | null: false  |
+| Column             | Type   | Options                  |
+| ------------------ | ------ | -----------------------  |
+| email              | string | null: false,unique: true |
+| encrypted_password | string | null: false              |
+| nickname           | string | null: false              |
+| first_name         | string | null: false              |
+| last_name          | string | null: false              |
+| first_name_kana    | string | null: false              |
+| last_name_kana     | string | null: false              |
+| birthday           | date   | null: false              |
 
 ### Association
 
@@ -20,17 +20,17 @@
 
 ## items テーブル
 
-| Column        | Type       | Options                       |
-| ------------- | ---------- | ----------------------------- |
-| product_name  | string     | null: false                   |
-| text          | text       | null: false                   |
-| price         | integer    | null: false                   |
-| category      | integer    | null: false                   |
-| condition     | integer    | null: false                   |
-| shipping_fee  | integer    | null: false                   |
-| prefecture    | integer    | null: false                   |
-| shipping_day  | integer    | null: false                   |
-| user          | references | null: false, foreign_key: true|
+| Column          | Type       | Options                       |
+| --------------- | ---------- | ----------------------------- |
+| product_name    | string     | null: false                   |
+| text            | text       | null: false                   |
+| price           | integer    | null: false                   |
+| category_id     | integer    | null: false                   |
+| condition_id    | integer    | null: false                   |
+| shipping_fee_id | integer    | null: false                   |
+| prefecture_id   | integer    | null: false                   |
+| shipping_day_id | integer    | null: false                   |
+| user            | references | null: false, foreign_key: true|
 
 ### Association
 
@@ -61,7 +61,7 @@
 | building_name | string     |                               |
 | phone_number  | string     | null: false                   |
 | purchase      | references | null: false, foreign_key: true|
-| prefecture    | integer    | null:                         |
+| prefecture_id | integer    | null: false                   |
 
 
 ### Association
