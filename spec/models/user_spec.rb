@@ -5,6 +5,21 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
+    context '入力に問題がなければユーザーが登録できる' do
+      it 'nicknameとemail、passwordとpassword_confirmation、名字、名前、フリガナ、誕生日が存在すれば登録できる' do
+        expect(@user).to be_valid
+      end
+      it 'passwordとpassword_confirmationが英数字混合6文字以上であれば登録できる' do
+        @user.password = '00000a'
+        @user.password_confirmation = '00000a'
+        expect(@user).to be_valid
+      end
+      it 'passwordとpassword_confirmationが一致すれば登録できる' do
+        @user.password = '12345a'
+        @user.password_confirmation = '12345a'
+        expect(@user).to be_valid
+      end
+    end
     context '新規登録できないとき' do
       it 'emailが空では登録できない' do
         @user.email = ''
@@ -19,7 +34,7 @@ RSpec.describe User, type: :model do
         expect(another_user.errors.full_messages).to include "Email has already been taken"
       end
       it 'emailに＠が含まれていない場合は登録できない' do
-        @user.email = 'sample.gmail.com'
+        @user.email = 'sample.com'
         @user.valid?
         expect(@user.errors.full_messages).to include "Email is invalid"
       end
@@ -32,29 +47,23 @@ RSpec.describe User, type: :model do
         @user.password = '0000a'
         @user.password_confirmation = '0000a'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password is too short (minimum is 6 characters)", "Password is invalid. Include both letters and numbers"
+        expect(@user.errors.full_messages).to include "Password is too short (minimum is 6 characters)"
       end
       it 'passwordとpassword_confirmationが不一致では登録できないこと' do
         @user.password = '12345a'
-        @user.password_confirmation = '12345a6'
+        @user.password_confirmation = '12345a7'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password","Password is invalid. Include both letters and numbers"
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
       end
-
+      it 'passwordとpassword_confirmationが数字だけでは登録できないこと' do
+        @user.password = '123456'
+        @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password is invalid. Include both letters and numbers"
+      end
     end
-
-
-
   end
-
-
 end
  
 
 
-# ・メールアドレスが必須であること。
-#・メールアドレスが一意性であること。
-#・メールアドレスは、@を含む必要があること。
-#・パスワードが必須であること。
-#・パスワードは、6文字以上での入力が必須であること。
-#・パスワードとパスワード（確認）は、値の一致が必須であること。
