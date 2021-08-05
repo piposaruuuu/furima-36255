@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
 
   with_options presence: true do
-  validates :product_name,:text,:price
+  validates :product_name,:text,:price,:image
   validates :category_id, :condition_id,  :shipping_day_id, :shipping_fee_id, :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"} 
   end
 end
