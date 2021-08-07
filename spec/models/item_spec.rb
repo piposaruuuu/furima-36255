@@ -77,17 +77,17 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Shipping day can't be blank"
       end
       it 'priceが空だと出品できない' do
-        @item.price = ''
+        @item.price = nil
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank", "Price is invalid. Input half-width characters", "Price can't be blank", "Price out of setting range"
       end
       it 'priceが下限(300)未満では出品できない' do
-        @item.price = '100'
+        @item.price = 100
         @item.valid?
         expect(@item.errors.full_messages).to include "Price out of setting range"
       end
       it 'priceが上限(9999999)を超えると出品できない' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include "Price out of setting range"
       end
@@ -95,6 +95,11 @@ RSpec.describe Item, type: :model do
         @item.price = '３００'
         @item.valid?
         expect(@item.errors.full_messages).to include "Price is invalid. Input half-width characters", "Price out of setting range"
+      end
+      it '出品者の情報が空の場合出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
