@@ -51,7 +51,7 @@
 - belongs_to :user
 - belongs_to :item
 
-## deliveries テーブル
+## orders テーブル
 
 | Column        | Type       | Options                       |
 | ------------- | ---------- | ----------------------------- |
