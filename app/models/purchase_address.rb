@@ -6,7 +6,7 @@ class PurchaseAddress
     validates :city, :block, :user_id, :item_id
     validates :prefecture_id,numericality: { other_than: 1, message: "can't be blank" }
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-    validates :phone_number, format: {with: /^(0{1}\d{9,10})$/, message: "is too short"}
+    validates :phone_number, format: {with: /\A(0{1}\d{9,10})\z/, message: "is too short"}
   end
 
   def save
