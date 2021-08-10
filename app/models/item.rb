@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :prefecture
 
+  
   with_options presence: true do
     validates :product_name, :text, :image
     validates :category_id, :condition_id, :shipping_day_id, :shipping_fee_id, :prefecture_id,
